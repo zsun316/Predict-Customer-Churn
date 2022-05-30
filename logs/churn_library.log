@@ -1,1 +1,6 @@
 root - INFO - Testing import_data: SUCCESS
+root - INFO - Check churn_distribution.png: SUCCESS
+root - INFO - Check customer_age_distribution.png: SUCCESS
+root - INFO - Check heatmap.png: SUCCESS
+root - INFO - Check marital_status_distribution.png: SUCCESS
+root - INFO - Check total_transaction_distribution.png: SUCCESS

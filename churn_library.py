@@ -30,19 +30,74 @@ def import_data(pth):
     output:
             df: pandas dataframe
     '''
-	pass
+    df = pd.read_csv(pth)
+    return df
 
 
 def perform_eda(df):
     '''
     perform eda on df and save figures to images folder
     input:
-            df: pandas dataframe
-
+        df: pandas dataframe
     output:
-            None
+        None
     '''
-	pass
+    # create cat columns and quant columns.
+    cat_columns = [
+        'Gender',
+        'Education_Level',
+        'Marital_Status',
+        'Income_Category',
+        'Card_Category'                
+    ]
+    quant_columns = [
+        'Customer_Age',
+        'Dependent_count', 
+        'Months_on_book',
+        'Total_Relationship_Count', 
+        'Months_Inactive_12_mon',
+        'Contacts_Count_12_mon', 
+        'Credit_Limit', 
+        'Total_Revolving_Bal',
+        'Avg_Open_To_Buy', 
+        'Total_Amt_Chng_Q4_Q1', 
+        'Total_Trans_Amt',
+        'Total_Trans_Ct', 
+        'Total_Ct_Chng_Q4_Q1', 
+        'Avg_Utilization_Ratio'
+    ]
+
+    # churn_distribution: 
+    df['Churn'] = df['Attrition_Flag'].apply(
+        lambda val: 0 if val == "Existing Customer" else 1
+    )
+    plt.figure(figsize=(20,10))
+    df['Churn'].hist()
+    plt.savefig('./images/eda/churn_distribution.png')
+
+    # customer_age_distribution
+    plt.figure(figsize=(20,10)) 
+    df['Customer_Age'].hist()
+    plt.savefig('./images/eda/customer_age_distribution.png')
+
+    # feature correlation heatmap
+    plt.figure(figsize=(20,10)) 
+    sns.heatmap(df.corr(), annot=False, cmap='Dark2_r', linewidths = 2)
+    plt.savefig('./images/eda/heatmap.png')
+
+    # marital_status_distribution
+    plt.figure(figsize=(20,10)) 
+    df.Marital_Status.value_counts('normalize').plot(kind='bar')
+    plt.savefig('./images/eda/marital_status_distribution.png')
+
+    # total_transaction_distribution
+    # Show distributions of 'Total_Trans_Ct' and 
+    # add a smooth curve obtained using a kernel density estimate
+    plt.figure(figsize=(20,10)) 
+    sns.histplot(df['Total_Trans_Ct'], stat='density', kde=True)
+    plt.savefig('./images/eda/total_transaction_distribution.png')
+
+
 
 
 def encoder_helper(df, category_lst, response):
@@ -125,6 +180,8 @@ def train_models(X_train, X_test, y_train, y_test):
 
 
 if __name__ == '__main__':
+    pass
+
 
 
 

@@ -1,5 +1,19 @@
 # library doc string
+import shap
+import joblib
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns; sns.set()
 
+from sklearn.preprocessing import normalize
+from sklearn.model_selection import train_test_split
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+
+from sklearn.metrics import plot_roc_curve, classification_report
 
 # import libraries
 import os
@@ -108,3 +122,10 @@ def train_models(X_train, X_test, y_train, y_test):
               None
     '''
     pass
+
+
+if __name__ == '__main__':
+
+
+
+

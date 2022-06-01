@@ -181,10 +181,10 @@ def test_train_models(import_data, encoder_helper,
 
 
 if __name__ == "__main__":
-	# test_import(cl.import_data)
-	# test_eda(cl.import_data, cl.perform_eda)
-	# test_encoder_helper(cl.import_data, cl.encoder_helper)
-	# test_perform_feature_engineering(cl.import_data, cl.encoder_helper, cl.perform_feature_engineering)
+	test_import(cl.import_data)
+	test_eda(cl.import_data, cl.perform_eda)
+	test_encoder_helper(cl.import_data, cl.encoder_helper)
+	test_perform_feature_engineering(cl.import_data, cl.encoder_helper, cl.perform_feature_engineering)
 	test_train_models(cl.import_data, cl.encoder_helper,
                       cl.perform_feature_engineering,
                       cl.classification_report_image,

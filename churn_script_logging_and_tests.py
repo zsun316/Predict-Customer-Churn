@@ -1,6 +1,7 @@
 import os
 import logging
 import churn_library as cl
+import joblib
 
 logging.basicConfig(
     filename='./logs/churn_library.log',
@@ -77,27 +78,118 @@ def test_eda(import_data, perform_eda):
 		raise err
 
 
-def test_encoder_helper(encoder_helper):
+def test_encoder_helper(import_data, encoder_helper):
 	'''
 	test encoder helper
 	'''
+	df = import_data("./data/bank_data.csv")
+	categories = ['Gender', 'Education_Level', 'Marital_Status', 'Income_Category', 'Card_Category']
+	responseName = 'Churn'
+	encoded_df = encoder_helper(df, categories, responseName)
 
+	try:
+		assert encoded_df.shape[0] > 0
+		assert encoded_df.shape[1] > 0
+		logging.info('encoded df dimension correct.')
+	except AssertionError as err:
+		logging.error("Testing test_encoder_helper: The file doesn't appear to have rows and columns")
+		raise err
 
-def test_perform_feature_engineering(perform_feature_engineering):
+def test_perform_feature_engineering(import_data, encoder_helper, 
+	                                 perform_feature_engineering):
 	'''
 	test perform_feature_engineering
 	'''
+	df = import_data("./data/bank_data.csv")
+	categories = ['Gender', 'Education_Level', 'Marital_Status', 'Income_Category', 'Card_Category']
+	responseName = 'Churn'
+
+	df = encoder_helper(df, categories, responseName)
+	mp = perform_feature_engineering(df, responseName)
+	try:
+		assert mp['X_train'].shape[0] > 0
+		assert mp['X_train'].shape[1] > 0
+		assert mp['X_test'].shape[0] > 0
+		assert mp['X_test'].shape[1] > 0
+		assert mp['y_train'].size > 0
+		assert mp['y_test'].size > 0
+		logging.info("Testing perform_feature_engineering: SUCCESS")
+	except AssertionError as err:
+		logging.error("Testing perform_feature_engineering: failed")
+		raise err
 
 
-def test_train_models(train_models):
+def test_train_models(import_data, encoder_helper,
+                      perform_feature_engineering,
+                      classification_report_image,
+                      feature_importance_plot,
+	                  train_models):
 	'''
 	test train_models
 	'''
+	df = import_data("./data/bank_data.csv")
+	categories = ['Gender', 'Education_Level', 'Marital_Status', 'Income_Category', 'Card_Category']
+	responseName = 'Churn'
+
+	df = encoder_helper(df, categories, responseName)
+	mp = perform_feature_engineering(df, responseName)
+    
+	X_train, X_test, y_train, y_test = mp['X_train'], mp['X_test'], mp['y_train'], mp['y_test']
+	train_models(X_train, X_test, y_train, y_test)
+	rfc_model = joblib.load('./models/rfc_model.pkl')
+	lr_model = joblib.load('./models/logistic_model.pkl')
+	y_train_preds_rf = rfc_model.predict(X_train)
+	y_test_preds_rf = rfc_model.predict(X_test)
+	y_train_preds_lr = lr_model.predict(X_train)
+	y_test_preds_lr = lr_model.predict(X_test)
+
+	classification_report_image(y_train,y_test,y_train_preds_lr,y_train_preds_rf,y_test_preds_lr,y_test_preds_rf)
+	pth_feat = './images/results/feature_importances.png'
+	feature_importance_plot(rfc_model, mp['X'], pth_feat)
+
+	pth_rf_res = './images/results/rf_results.png'
+	pth_logistic_res = './images/results/logistic_results.png'
+	pth_roc_auc = './images/results/roc_curve_result.png'
+	try:
+		assert os.path.exists(pth_feat) == True and os.path.getsize(pth_feat) > 0
+		logging.info("Check feature_importance.png: SUCCESS")
+	except AssertionError as err:
+		logging.error("Check feature_importance.png: The file wasn't found")
+		raise err
+
+	try:
+		assert os.path.exists(pth_rf_res) == True and os.path.getsize(pth_rf_res) > 0
+		logging.info("Check rf_results.png: SUCCESS")
+	except AssertionError as err:
+		logging.error("Check rf_results.png: The file wasn't found")
+		raise err
+
+	try:
+		assert os.path.exists(pth_logistic_res) == True and os.path.getsize(pth_logistic_res) > 0
+		logging.info("Check logistic_results.png: SUCCESS")
+	except AssertionError as err:
+		logging.error("Check logistic_results.png: The file wasn't found")
+		raise err
+
+	try:
+		assert os.path.exists(pth_roc_auc) == True and os.path.getsize(pth_roc_auc) > 0
+		logging.info("Check roc_auc_result.png: SUCCESS")
+	except AssertionError as err:
+		logging.error("Check roc_auc_result.png: The file wasn't found")
+		raise err
+
 
 
 if __name__ == "__main__":
-	test_import(cl.import_data)
-	test_eda(cl.import_data, cl.perform_eda)
+	# test_import(cl.import_data)
+	# test_eda(cl.import_data, cl.perform_eda)
+	# test_encoder_helper(cl.import_data, cl.encoder_helper)
+	# test_perform_feature_engineering(cl.import_data, cl.encoder_helper, cl.perform_feature_engineering)
+	test_train_models(cl.import_data, cl.encoder_helper,
+                      cl.perform_feature_engineering,
+                      cl.classification_report_image,
+                      cl.feature_importance_plot,
+	                  cl.train_models)
 
 
 

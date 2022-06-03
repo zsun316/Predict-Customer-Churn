@@ -1,4 +1,9 @@
 # library doc string
+"""
+Script Description: data preprocessing, feature engineering, and model training
+Name: Zhaohan Sun
+Date: Jun 3
+"""
 import shap
 import joblib
 import pandas as pd

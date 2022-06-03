@@ -7,6 +7,7 @@
 - The dataset (https://leaps.analyttica.com/home) consists of 10,000 customers mentioning their age, salary, marital_status, credit card limit, credit card category, etc. There are 18 features.
 
 ## Files and data description
+'''
 LICENSE<br />
 README.md<br />
 churn_library.py<br />
@@ -32,7 +33,7 @@ logs<br />
 models<br />
    |-- logistic_model.pkl<br />
    |-- rfc_model.pkl<br />
-
+'''
 ## Requirement
 Numpy, Shap, Joblib, Pandas, Sklearn
 

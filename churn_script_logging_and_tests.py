@@ -1,3 +1,8 @@
+"""
+Script Description: Test and monitor churn.library.py
+Name: Zhahan Sun
+Date: Jun 3
+"""
 import os
 import logging
 import churn_library as cl

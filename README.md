@@ -8,32 +8,33 @@
 
 ## Files and data description
 '''bash
-LICENSE<br />
-README.md<br />
-churn_library.py<br />
-churn_notebook.ipynb<br />
-churn_script_logging_and_tests.py<br />
-data<br />
-   |-- bank_data.csv<br />
-images<br />
-   |-- .DS_Store<br />
-   |-- eda<br />
-   |   |-- churn_distribution.png<br />
-   |   |-- customer_age_distribution.png<br />
-   |   |-- heatmap.png<br />
-   |   |-- marital_status_distribution.png<br />
-   |   |-- total_transaction_distribution.png<br />
-   |-- results<br />
-   |   |-- feature_importances.png<br />
-   |   |-- logistic_results.png<br />
-   |   |-- rf_results.png<br />
-   |   |-- roc_curve_result.png<br />
-logs<br />
-   |-- churn_library.log<br />
-models<br />
-   |-- logistic_model.pkl<br />
-   |-- rfc_model.pkl<br />
+LICENSE
+README.md
+churn_library.py
+churn_notebook.ipynb
+churn_script_logging_and_tests.py
+data
+   |-- bank_data.csv
+images
+   |-- .DS_Store
+   |-- eda
+   |   |-- churn_distribution.png
+   |   |-- customer_age_distribution.png<
+   |   |-- heatmap.png
+   |   |-- marital_status_distribution.png
+   |   |-- total_transaction_distribution.png
+   |-- results<
+   |   |-- feature_importances.png
+   |   |-- logistic_results.png<
+   |   |-- rf_results.png
+   |   |-- roc_curve_result.png
+logs
+   |-- churn_library.log
+models
+   |-- logistic_model.pkl
+   |-- rfc_model.pkl
 '''
+
 ## Requirement
 Numpy, Shap, Joblib, Pandas, Sklearn
 

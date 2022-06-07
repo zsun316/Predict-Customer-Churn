@@ -19,7 +19,7 @@ images
    |-- .DS_Store
    |-- eda
    |   |-- churn_distribution.png
-   |   |-- customer_age_distribution.png<
+   |   |-- customer_age_distribution.png
    |   |-- heatmap.png
    |   |-- marital_status_distribution.png
    |   |-- total_transaction_distribution.png
@@ -41,7 +41,7 @@ Numpy, Shap, Joblib, Pandas, Sklearn
 ## Running Files
 - There are two ways to test the script:
      ### Directly executing the command (requires main() function):
-     $ ipython churn_script_logging_and_tests.py'
+     $ ipython churn_script_logging_and_tests.py
      ### Using pytest command:
      $ pytest churn_script_logging_and_tests.py
 
